@@ -1,28 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>List 1</title>
-</head>
-<body>
+  </head>
+  <body>
     <div id="list"></div>
     <script>
-        fetch("https://api.github.com/repos/bored-try-this/list1/contents")
-        .then(response => response.json())
-        .then(json => {
-            var currentFolder = 2;
+      fetch("https://api.github.com/repos/bored-try-this/list1/contents")
+        .then((response) => response.json())
+        .then((json) => {
+          var currentFolder = 2;
 
-            while(Object.keys(json).length > currentFolder){
-                if(json[currentFolder]["type"] == "dir"){
-                    var name = json[currentFolder]["name"];
-                    var p = document.createElement("p");
-                    p.innerHTML = "<a href='https://bored-try-this.github.io/list1/" + name + "'>" + name + "</a>";
-                    document.getElementById("list").appendChild(p);
-                }
-                currentFolder ++;
+          const hide = ["cleancss", "css", "images", "js"];
+
+          while (Object.keys(json).length > currentFolder) {
+            if (json[currentFolder]["type"] == "dir") {
+              var name = json[currentFolder]["name"].replaceAll("-", " ");
+              if (hide.includes(name)) {
+                currentFolder++;
+                continue;
+              }
+              var p = document.createElement("p");
+              p.innerHTML =
+                "<a href='https://bored-try-this.github.io/list1/" +
+                name +
+                "'>" +
+                name +
+                "</a>";
+              document.getElementById("list").appendChild(p);
             }
+            currentFolder++;
+          }
         });
     </script>
-</body>
+  </body>
 </html>
