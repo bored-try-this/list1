@@ -2,14 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Unblocked Games - Best Place For Unblocked Games</title>
-    <meta name="description" content="Unblocked Games – Enjoy Your Favorite Games Anytime, Anywhere! Our website provides with top Trending Unblocked Games you can discover online, including Unblocked Games 66, Unblocked Games 76, Unblocked Games wtf, and more!"/>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <title>List 1</title>
 </head>
 <body>
-    <h2>welcome to <a href="#" rel="dofollow" target="_blank">Unblocked Games World</a> </h2>
+    <div id="list"></div>
+    <script>
+        fetch("https://api.github.com/repos/bored-try-this/list1/contents")
+        .then(response => response.json())
+        .then(json => {
+            var currentFolder = 2;
+
+            while(Object.keys(json).length > currentFolder){
+                if(json[currentFolder]["type"] == "dir"){
+                    var name = json[currentFolder]["name"];
+                    var p = document.createElement("p");
+                    p.innerHTML = "<a href='https://bored-try-this.github.io/list1/" + name + "'>" + name + "</a>";
+                    document.getElementById("list").appendChild(p);
+                }
+                currentFolder ++;
+            }
+        });
+    </script>
 </body>
 </html>
